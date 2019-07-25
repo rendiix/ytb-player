@@ -7,23 +7,21 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/rendiix/ytb-player.svg)](https://github.com/rendiix/ytb-player/graphs/contributors/)
 
 # YTB-PLAYER
-##A simple CLI YouTube player and downloader 
+## A simple CLI YouTube player and downloader 
 #### Install:
-```console
-user@termux $ git clone https://github.com/rendiix/ytb-player.git
-user@termux $ ytb "lagu yang ingin dicari"
+``` console
+user@termux: git clone https://github.com/rendiix/ytb-player.git
+user@termux: ytb "lagu yang ingin dicari"
 ```
 #### Join Discord or follow me on Twitter:
 
 [![Discord](https://img.shields.io/discord/404576842419273729.svg?label=join%20discord&logo=discord)](https://discord.gg/5PmKhrc)
 [![Twitter Follow](https://img.shields.io/twitter/follow/rendiix.svg?color=green&label=follow&logo=twitter&style=social)](https://twitter.com/rendiix)
 
-#####
-- Screenshoot:
+##### - Screenshoot:
 
-![image](https://raw.githubusercontent.com/rendiix/rendiix.github.io/master/screensoot/ytb-player/mart1.png)
-![image](https://raw.githubusercontent.com/rendiix/rendiix.github.io/master/screensoot/ytb-player/mart2.png)
-![image](https://raw.githubusercontent.com/rendiix/rendiix.github.io/master/screensoot/ytb-player/mart3.png)
-![image](https://raw.githubusercontent.com/rendiix/rendiix.github.io/master/screensoot/ytb-player/mart4.png)
+![image](https://raw.githubusercontent.com/rendiix/rendiix.github.io/master/screensoot/ytb-player/ytb1.jpg)
+![image](https://raw.githubusercontent.com/rendiix/rendiix.github.io/master/screensoot/ytb-player/ytb2.jpg)
+![image](https://raw.githubusercontent.com/rendiix/rendiix.github.io/master/screensoot/ytb-player/ytb3.jpg)
 
 
