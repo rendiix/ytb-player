@@ -10,8 +10,8 @@
 ##A simple CLI YouTube player and downloader 
 #### Install:
 ```console
-user@termux: git clone https://github.com/rendiix/ytb-player.git
-user@termux: ytb "lagu yang ingin dicari"
+user@termux $ git clone https://github.com/rendiix/ytb-player.git
+user@termux $ ytb "lagu yang ingin dicari"
 ```
 #### Join Discord or follow me on Twitter:
 
