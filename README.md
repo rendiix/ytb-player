@@ -11,7 +11,8 @@
 #### Install:
 ``` console
 $ git clone https://github.com/rendiix/ytb-player.git
-$ bash ytb-player/install.sh
+$ cd ytb-player
+$ bash install.sh
 $ ytb "lagu yang ingin dicari"
 ```
 #### Join Discord or follow me on Twitter:
