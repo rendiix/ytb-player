@@ -50,7 +50,7 @@ $ ytb \"lagu yang mau dicari\"\n"
 }
 
 echo -e "memeriksa update...\c"
-apt-get updatei > /dev/null 2>&1
+apt-get update > /dev/null 2>&1
 apt-get upgrade -y > /dev/null 2>&1
 if [ "$?" = "0" ]; then
 	echo -e " ${HI}ok${NO}"
