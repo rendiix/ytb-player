@@ -32,7 +32,7 @@ function CHECK_DEP() {
 		else
 			echo -e " ${ME}tidak${NO}"
 			echo -e "memasang...\c" 
-			apt-get --yes --force-yes install $i
+			apt-get --yes install $i > /dev/null 2>&1
 			if [ "$?" = "0" ]; then
 				echo -e " ${HI}selesai${NO}"
 			else
@@ -94,6 +94,7 @@ function DEB() {
 
 function SYMLINK() {
 	echo -e "\nmembuat pintasan ytb-player...\c"
+	chmod +x ${TUAN_RUMAH}/src/ytb-player.sh
 	ln -sf ${TUAN_RUMAH}/src/ytb-player.sh $PREFIX/bin/ytb
 	ln -sf ${TUAN_RUMAH}/src/ytb-player.sh $PREFIX/bin/ytb-player
 	sleep 1
