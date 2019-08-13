@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
-# File       : /data/data/com.termux/files/home/debian-package/package/ytb-player/ytb-source.sh
+# File       : src/ytb-player.sh
 # Author     : rendiix <vanzdobz@gmail.com>
 # Create date: 10-Jul-2019 14:18
 # ./ytb-player.sh
@@ -162,7 +162,7 @@ printf "${TB}${HI}${B2}#%*s%*s#${NO}\n" $(((${#title1}+$bcol)/2)) "$title1" $(($
 printf "${TB}${HI}${B2}#%*s%*s#${NO}\n" $(((${#title2}+$bcol)/2)) "$title2" $(($bcol-(${#title2}+$bcol)/2))
 printf "${TB}${HI}${B2}#%*s%*s#${NO}\n" $(((${#title3}+$bcol)/2)) "$title3" $(($bcol-(${#title3}+$bcol)/2))
 printf "${TB}${HI}${B2}%0.s#${NO}" $(seq 1 $(tput cols))
-printf "${TB}${ME}%$(tput cols)s\n" "v3.1"
+printf "${TB}${ME}%$(tput cols)s\n" "<developer_version>"
 }
 
 function BANNER_INFO() {
@@ -174,7 +174,7 @@ echo
 function MENU_PENCARIAN () {
 		nexttext=""
 		if [[ "$next" != "null" ]]; then
-			nexttext="Masukkan angka atau [${HI}n${NO}] halaman selanjutnya"
+			nexttext="Pilih [${HI}1-20${NO}], [${HI}a${NO}] mainkan semua, [${HI}n${NO}] halaman selanjutnya"
 		fi
 		if [[ "$prev" != "null" ]]; then
 			nextsep=""
@@ -183,7 +183,7 @@ function MENU_PENCARIAN () {
 			fi
 			nexttext="$nexttext$nextsep[${HI}p${NO}] halaman sebelumnya"
 		fi
-		nexttext="$nexttext, [${HI}c${NO}]ari lagi, [${HI}q${NO}] keluar"
+		nexttext="$nexttext, [${HI}c${NO}]ari lagi, [${HI}s${NO}] pengaturan, [${HI}q${NO}] keluar"
 		nexttext="$nexttext"
 		echo -e $nexttext
 }
@@ -285,9 +285,15 @@ function PDATE() {
 	echo -e "${hari}, $tanggal $bulan $tahun"
 }
 
-function  DETAIL_VIDEO() {
+function SETTINGS() {
 	HEADER_BANNER;
-	BANNER_INFO "DETAIL VIDEO"
+	BANNER_INFO "PENGATURAN"
+	INPUT_MASUKAN;
+}
+
+function DETAIL_VIDEO() {
+	HEADER_BANNER;
+	BANNER_INFO "$2"
 	vidid=${vidids_array[$1]}
 	vidtitle=${vidtitles_array[$1]}
 	curl -sG "${api_url}videos/" \
@@ -304,9 +310,11 @@ function  DETAIL_VIDEO() {
 	printf "${TB}%-9s ${PU}: ${CY}%s${NO}\n" "CHANNEL" "${channeltitles_array[$1]}"
 	printf "${TB}%-9s ${PU}: ${CY}%s${NO}\n" "DIUNGGAH" "$(PDATE "${pubdates_array[$1]}")"
 	echo -e "\n• ${viewc}x ditonton 📺 • ${HI}$likec${NO} 👍 • ${ME}$dislc${NO} 👎 • ${KU}$comc 💬\n${NO}"
+	if [ "$3" = "1" ]; then
 	printf "${TB}%-9s ${PU}:${NO} %s${NO}\n\n" "DESKRIPSI" "$desc"
 	#printf "${TB}%-9s ${PU}: ${CY}%s${NO}\n\n" "LINK" "$video_url${vidids_array[$1]}"
 	MENU_MUSIC
+	fi
 }
 
 function GET_TOPCOMMENT() {
@@ -394,6 +402,21 @@ function TAMPILAN_PENCARIAN () {
 	INPUT_MASUKAN
 }
 
+function PLAY_ALL() {
+	nomer="0"
+	for list in "${!vidids_array[@]}"; do
+		DETAIL_VIDEO $nomer "PLAY ALL"
+		echo -e "${TB}${PU}Kontrol Musik:
+[${HI}q${PU}] Stop, [${HI}space${PU}] play/pause, [${HI}m${PU}] Mute/unmute, [${HI}←${PU}] [${HI}→${PU}] Seek, [${HI}↑${PU}] [${HI}↓${PU}] SEEK, [${HI}9${PU}] [${HI}0${PU}] Vol
+"
+		printf "\033]0;%s\007" "ytb-player: playing ${vidtitles_array[$nomer]}..."
+        $player --no-video $video_url${vidids_array[$nomer]}
+        nomer=$(( $list + 1 ))
+	done
+	MENU_PENCARIAN
+	INPUT_MASUKAN
+}
+
 function DOWNLOAD_MUSIC() {
 echo -e "\nMengunduh: ${ME}${vidtitles_array[$playvid]}${NO}\nsilahkan tunggu"
 youtube-dl -f bestaudio -o "/data/data/com.termux/files/home/storage/music/%(title)s.%(ext)s" --audio-format mp3 --extract-audio --audio-quality 0 --add-metadata $video_url${vidids_array[$playvid]}
@@ -413,6 +436,7 @@ function PLAY_MUSIC () {
 [${HI}q${PU}] Stop, [${HI}space${PU}] play/pause, [${HI}m${PU}] Mute/unmute, [${HI}←${PU}] [${HI}→${PU}] Seek, [${HI}↑${PU}] [${HI}↓${PU}] SEEK, [${HI}9${PU}] [${HI}0${PU}] Vol
 
 ${NO}Memainkan: ${ME}${vidtitles_array[$playvid]}${NO}" 
+		printf "\033]0;%s\007" "Memainkan... ${vidtitles_array[$playvid]}..."
         $player --no-video $video_url${vidids_array[$playvid]}
 }
 
@@ -420,12 +444,13 @@ function FUNGSI_MASUKAN_UTAMA () {
 	case $userinput in
 		([0-9]|[1-7][0-9]|20) if [[ $userinput -le $MAX_PENCARIAN ]]; then
 				playvid=$(( $userinput -1 ))
-				DETAIL_VIDEO $playvid
+				DETAIL_VIDEO $playvid "DETAIL VIDEO" 1
 				INPUT_MASUKAN
 			else
 				INPUT_MASUKAN "Nomor salah!\nPilih 1-${MAX_PENCARIAN}"
 			fi;;
-		b ) DETAIL_VIDEO $playvid;;
+		b ) DETAIL_VIDEO $playvid "DETAIL VIDEO" 1;;
+		a ) PLAY_ALL;;
 		h )
 			if [[ "$next_comment" != "null" ]]; then
 				HKOMEN=$(( HKOMEN + 1 ))
@@ -470,9 +495,8 @@ function FUNGSI_MASUKAN_UTAMA () {
 			TIPE_PENCARIAN="search"
 			SEARCH_MAIN;;
 		k ) TAMPILAN_PENCARIAN;;
-		q|:q|exit|close|quit )
-			exit
-			;;
+		s ) SETTINGS;;
+		q|:q|exit|close|quit ) exit;;
 		* ) if [ "${#userinput}" -lt 2 ]; then
 				INPUT_MASUKAN "Masukkan salah"
 			else
