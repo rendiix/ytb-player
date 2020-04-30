@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
-# File       : ytb.sh
+# File       : ytb-player.sh
 # Author     : rendiix <vanzdobz@gmail.com>
 # Create date: 10-Mar-2020 10:36
 # Copyright (c) 2020 rendiix <vanzdobz@gmail.com>
@@ -465,7 +465,9 @@ DOWNLOAD_MUSIC ()
 { 
     echo -e "Download sebagi:
     	1. Video
-	2. Mp3";
+	2. Mp3
+
+jawab: ";
     while read && [[ $REPLY != q ]]; do
         case $REPLY in 
             1)
