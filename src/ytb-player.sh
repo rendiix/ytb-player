@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
-# File       : ytb-player.sh
+# File       : src/ytb-player.sh
 # Author     : rendiix <vanzdobz@gmail.com>
 # Create date: 10-Mar-2020 10:36
 # Copyright (c) 2020 rendiix <vanzdobz@gmail.com>
@@ -150,12 +150,10 @@ HEADER_BANNER ()
     bcol=$(($(tput cols)-2));
     clear;
     title1="* YUTUP-PLAYER *";
-    title2="* by rendiix *";
-    title3="* A simple CLI YouTube player and downloader *";
+    title2="* A simple CLI YouTube player and downloader *";
     printf "${TB}${HI}${B2}%0.s#${NO}" $(seq 1 $(tput cols));
     printf "${TB}${HI}${B2}#%*s%*s#${NO}\n" $(((${#title1}+$bcol)/2)) "$title1" $(($bcol-(${#title1}+$bcol)/2));
     printf "${TB}${HI}${B2}#%*s%*s#${NO}\n" $(((${#title2}+$bcol)/2)) "$title2" $(($bcol-(${#title2}+$bcol)/2));
-    printf "${TB}${HI}${B2}#%*s%*s#${NO}\n" $(((${#title3}+$bcol)/2)) "$title3" $(($bcol-(${#title3}+$bcol)/2));
     printf "${TB}${HI}${B2}%0.s#${NO}" $(seq 1 $(tput cols));
     printf "${TB}${ME}%$(tput cols)s\n" "<developer_version>"
 }
